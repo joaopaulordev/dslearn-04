@@ -3,7 +3,6 @@ package com.devsuperior.dslearnbds.entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,6 @@ public class Course implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
 	private String name;
 	private String imgUri;
 	private String imgGrayUri;
@@ -70,14 +68,17 @@ public class Course implements Serializable {
 	public void setImgGrayUri(String imgGrayUri) {
 		this.imgGrayUri = imgGrayUri;
 	}
-	
+
 	public List<Offer> getOffers() {
 		return offers;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
 	@Override
@@ -89,6 +90,11 @@ public class Course implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Course other = (Course) obj;
-		return Objects.equals(id, other.id);
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 }
